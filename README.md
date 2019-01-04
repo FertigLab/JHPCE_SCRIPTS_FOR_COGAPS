@@ -1,14 +1,14 @@
-# MARCC project manager for submitting CoGAPS runs
+# JHPCE project manager for submitting CoGAPS runs
 
-This repository contains a template for running multiple CoGAPS jobs on MARCC.
+This repository contains a template for running multiple CoGAPS jobs on JHPCE.
 
 ## Setup
 
 1) clone repository (change `project_name` to your project name)
 
 ```
-git clone https://github.com/FertigLab/MARCC_SCRIPTS_FOR_COGAPS.git
-mv MARCC_SCRIPTS_FOR_COGAPS project_name
+git clone https://github.com/FertigLab/JHPCE_SCRIPTS_FOR_COGAPS.git
+mv JHPCE_SCRIPTS_FOR_COGAPS project_name
 cd project_name
 chmod +x run
 ```
@@ -44,7 +44,7 @@ Your directory structure should now look like this (if you have `tree` installed
 Now that you have the directory structure set up, you can use the run script to submit jobs as follows:
 
 1) modify the parameter values `R_script.R` for your specific case
-2) modify the job parameters (i.e. #SBATCH ...) in `job_script.sh`
+2) modify the job parameters in `job_script.sh`
 3) execute `./run run_name run_id`
 
 This will copy over the scripts and run everything in a new directory called `run_name/run_id`. With these scripts you can quickly fire off multiple runs and all information (including log files) will be stored in a separate, well-structured directory.
@@ -73,11 +73,11 @@ and the result will be a directory like this:
 │   │   │   ├── slurm-31515407_2.out
 │   │   │   └── slurm-31515407_3.out
 │   │   ├── result_1
-│   │   │   └── sc_analysis_result.RData
+│   │   │   └── sc_analysis_result_1.RData
 │   │   ├── result_2
-│   │   │   └── sc_analysis_result.RData
+│   │   │   └── sc_analysis_result_2.RData
 │   │   ├── result_3
-│   │   │   └── sc_analysis_result.RData
+│   │   │   └── sc_analysis_result_3.RData
 │   │   └── scripts
 │   │       ├── job_script.sh
 │   │       └── R_script.R
@@ -86,15 +86,15 @@ and the result will be a directory like this:
 │       │   ├── slurm-31558492_1.out
 │       │   ├── slurm-31558492_2.out
 │       ├── result_1
-│       │   └── sc_analysis_result.RData
+│       │   └── sc_analysis_result_1.RData
 │       ├── result_2
-│       │   └── sc_analysis_result.RData
+│       │   └── sc_analysis_result_2.RData
 │       └── scripts
 │           ├── job_script.sh
 │           └── R_script.R
 ```
 
-The SLURM log files are sent to `run_id/logs` and the scripts used to set off the run are sent to `run_id/scripts`. All results are sent to `run_id/result_id` where the
+The log files are sent to `run_id/logs` and the scripts used to set off the run are sent to `run_id/scripts`. All results are sent to `run_id/result_id` where the
 `CogapsResult` object is saved to an `RData` file. The number of results is determined by how many parameters are being looped over in `R_script.R`.
 
 # Bugs/Suggestions
