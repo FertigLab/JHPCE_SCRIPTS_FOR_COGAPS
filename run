@@ -25,9 +25,6 @@ if [ $# -ne 2 ]; then
     exit_with_error "must specify output directory and run id"
 fi
 
-# load R first so that status messages are cleaner
-module load R
-
 # create output directory if needed, notify user
 TOP_LEVEL_DIR=${1%/}
 mkdir -p $TOP_LEVEL_DIR
@@ -92,4 +89,4 @@ echo "Using R script: $FINAL_R_SCRIPT"
 echo "Dumping results in: $FINAL_OUTPUT_DIR"
 
 # submit sbatch array
-sbatch -o $FINAL_OUTPUT_DIR/logs/slurm-%A_%a.out --array=1-$SIZE $FINAL_JOB_SCRIPT $FINAL_R_SCRIPT $FINAL_OUTPUT_DIR
+qsub -o $FINAL_OUTPUT_DIR/logs/output.txt -e $FINAL_OUTPUT_DIR/logs/error.txt -t 1-$SIZE $FINAL_JOB_SCRIPT $FINAL_R_SCRIPT $FINAL_OUTPUT_DIR
